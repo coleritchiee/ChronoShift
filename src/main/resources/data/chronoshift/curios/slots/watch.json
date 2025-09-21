@@ -1,0 +1,7 @@
+{
+  "identifier": "watch",
+  "icon": "minecraft:item/clock",
+  "size": 1,
+  "order": 20,
+  "enabled": true
+}
