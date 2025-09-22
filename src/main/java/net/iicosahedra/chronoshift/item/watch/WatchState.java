@@ -7,7 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.List;
 
 public record WatchState(int tier, List<ResourceLocation> upgrades) {
-    public static final WatchState DEFAULT = new WatchState(0, List.of());
+    public static final WatchState DEFAULT = new WatchState(1, List.of());
 
     public static final Codec<WatchState> CODEC = RecordCodecBuilder.create(i -> i.group(
             Codec.INT.fieldOf("tier").forGetter(WatchState::tier),

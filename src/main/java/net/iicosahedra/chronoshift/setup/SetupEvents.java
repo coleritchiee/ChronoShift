@@ -20,6 +20,6 @@ public class SetupEvents {
 
     @SubscribeEvent
     static void registerRegistries(NewRegistryEvent event){
-
+        event.register(Registration.TRAIT_REGISTRY);
     }
 }

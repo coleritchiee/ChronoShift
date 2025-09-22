@@ -1,18 +1,25 @@
 package net.iicosahedra.chronoshift.setup;
 
+import dev.shadowsoffire.apothic_attributes.api.ALObjects;
 import net.iicosahedra.chronoshift.ChronoShift;
 import net.iicosahedra.chronoshift.item.watch.WatchState;
+import net.iicosahedra.chronoshift.trait.AttributeHolder;
+import net.iicosahedra.chronoshift.trait.Trait;
 import net.iicosahedra.chronoshift.trait.TraitData;
+import net.iicosahedra.chronoshift.util.ResourceLoc;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -38,6 +45,10 @@ public class Registration {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(Registries.ENTITY_TYPE, ChronoShift.MODID);
     public static final DeferredRegister.DataComponents COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, ChronoShift.MODID);
 
+    public static final ResourceKey<Registry<Trait>> TRAIT_KEY = ResourceKey.createRegistryKey(ResourceLoc.create("trait"));
+    public static final Registry<Trait> TRAIT_REGISTRY = new RegistryBuilder<Trait>(TRAIT_KEY).defaultKey(ResourceLoc.create("empty")).sync(true).create();
+    public static final DeferredRegister<Trait> TRAITS = DeferredRegister.create(TRAIT_REGISTRY, ChronoShift.MODID);
+
     public static void init(IEventBus modEventBus) {
         ITEMS.register(modEventBus);
         ATTACHMENT_TYPES.register(modEventBus);
@@ -45,6 +56,7 @@ public class Registration {
         CREATIVE_TAB.register(modEventBus);
         ENTITY_TYPES.register(modEventBus);
         COMPONENTS.register(modEventBus);
+        TRAITS.register(modEventBus);
     }
 
     public static <T> T getRandomRegistryObject(DeferredRegister<T> registry){
@@ -92,4 +104,35 @@ public class Registration {
             ITEMS.register("time_watch", () -> new Item(new Item.Properties()
                     .component(WATCH_STATE.value(), WatchState.DEFAULT)
             ));
+
+
+    //Traits
+    public static final Holder<Trait> OVERCLOCKED = TRAITS.register("overclocked", ()->
+        new Trait("overclocked", Component.literal("Overclocked").withColor(0x2761F5),
+                List.of(
+                        new AttributeHolder(Attributes.MOVEMENT_SPEED, "attribute.chronoshift.trait.overclocked.ms", 0.1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL),
+                        new AttributeHolder(Attributes.ATTACK_SPEED, "attribute.chronoshift.trait.overclocked.as", 0.3, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                ),
+                Items.DIAMOND,
+                1)
+    );
+
+    public static final Holder<Trait> SIPHONING = TRAITS.register("siphoning", ()->
+            new Trait("siphoning", Component.literal("Siphoning").withColor(0xe62012),
+                    List.of(
+                            new AttributeHolder(ALObjects.Attributes.LIFE_STEAL, "attribute.chronoshift.trait.siphoning.ls", 0.1, AttributeModifier.Operation.ADD_VALUE)
+                    ),
+                    Items.DIAMOND,
+                    1)
+    );
+
+    public static final Holder<Trait> CRITICAL_THREAT = TRAITS.register("critical_threat", ()->
+            new Trait("critical_threat", Component.literal("Critical Threat").withColor(0xf4ff19),
+                    List.of(
+                            new AttributeHolder(ALObjects.Attributes.CRIT_CHANCE, "attribute.chronoshift.trait.critical_threat.cc", 0.5, AttributeModifier.Operation.ADD_VALUE),
+                            new AttributeHolder(ALObjects.Attributes.CRIT_DAMAGE, "attribute.chronoshift.trait.critical_threat.cd", 0.5, AttributeModifier.Operation.ADD_VALUE)
+                    ),
+                    Items.DIAMOND,
+                    1)
+            );
 }

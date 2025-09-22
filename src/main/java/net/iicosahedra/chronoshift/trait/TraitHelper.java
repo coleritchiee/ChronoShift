@@ -31,7 +31,7 @@ public class TraitHelper {
         return candidates.stream()
                 .max(Comparator
                         .<ServerPlayer>comparingInt(TraitHelper::watchTierOf)
-                        .thenComparingDouble(p -> -p.distanceToSqr(c.x, c.y, c.z)) // prefer closer on ties
+                        .thenComparingDouble(p -> -p.distanceToSqr(c.x, c.y, c.z))
                 )
                 .orElse(null);
     }
