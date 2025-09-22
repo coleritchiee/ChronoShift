@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "chronoshift",
+  "key": {
+    "A": {
+      "item": "chronoshift:temporal_shard"
+    },
+    "B": {
+      "item": "minecraft:diamond"
+    },
+    "C": {
+      "item": "chronoshift:broken_movement"
+    }
+  },
+  "pattern": [
+    " A ",
+    "BCB",
+    " B "
+  ],
+  "result": {
+    "count": 1,
+    "id": "chronoshift:time_watch"
+  }
+}

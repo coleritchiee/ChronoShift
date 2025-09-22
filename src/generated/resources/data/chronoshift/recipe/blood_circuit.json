@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "chronoshift",
+  "key": {
+    "A": {
+      "item": "chronoshift:crystal_blood"
+    },
+    "B": {
+      "item": "chronoshift:processor"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "ABA",
+    "AAA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "chronoshift:blood_circuit"
+  }
+}

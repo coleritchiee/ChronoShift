@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "chronoshift",
+  "key": {
+    "A": {
+      "item": "chronoshift:temporal_shard"
+    },
+    "B": {
+      "item": "minecraft:iron_ingot"
+    },
+    "C": {
+      "item": "minecraft:comparator"
+    }
+  },
+  "pattern": [
+    "ABA",
+    "BCB",
+    "ABA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "chronoshift:broken_movement"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_temporal_shard": {
+      "conditions": {
+        "items": [
+          {
+            "items": "chronoshift:temporal_shard"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "chronoshift:broken_movement"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_temporal_shard"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "chronoshift:broken_movement"
+    ]
+  }
+}

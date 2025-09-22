@@ -19,6 +19,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
@@ -105,6 +106,24 @@ public class Registration {
                     .component(WATCH_STATE.value(), WatchState.DEFAULT)
             ));
 
+    public static final Holder<Item> TEMPORAL_SHARD =
+            ITEMS.register("temporal_shard", () -> new Item(new Item.Properties()));
+
+    public static final Holder<Item> BROKEN_MOVEMENT =
+            ITEMS.register("broken_movement", () -> new Item(new Item.Properties()));
+
+    public static final Holder<Item> CRYSTAL_BLOOD =
+            ITEMS.register("crystal_blood", () -> new Item(new Item.Properties()));
+
+    public static final Holder<Item> ENHANCED_LENS =
+            ITEMS.register("enhanced_lens", () -> new Item(new Item.Properties()));
+
+    public static final Holder<Item> PROCESSOR =
+            ITEMS.register("processor", () -> new Item(new Item.Properties()));
+
+    public static final Holder<Item> BLOOD_CIRCUIT =
+            ITEMS.register("blood_circuit", () -> new Item(new Item.Properties()));
+
 
     //Traits
     public static final Holder<Trait> OVERCLOCKED = TRAITS.register("overclocked", ()->
@@ -113,7 +132,7 @@ public class Registration {
                         new AttributeHolder(Attributes.MOVEMENT_SPEED, "attribute.chronoshift.trait.overclocked.ms", 0.1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL),
                         new AttributeHolder(Attributes.ATTACK_SPEED, "attribute.chronoshift.trait.overclocked.as", 0.3, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
                 ),
-                Items.DIAMOND,
+                Registration.PROCESSOR.value(),
                 1)
     );
 
@@ -122,7 +141,7 @@ public class Registration {
                     List.of(
                             new AttributeHolder(ALObjects.Attributes.LIFE_STEAL, "attribute.chronoshift.trait.siphoning.ls", 0.1, AttributeModifier.Operation.ADD_VALUE)
                     ),
-                    Items.DIAMOND,
+                    Registration.CRYSTAL_BLOOD.value(),
                     1)
     );
 
@@ -132,7 +151,22 @@ public class Registration {
                             new AttributeHolder(ALObjects.Attributes.CRIT_CHANCE, "attribute.chronoshift.trait.critical_threat.cc", 0.5, AttributeModifier.Operation.ADD_VALUE),
                             new AttributeHolder(ALObjects.Attributes.CRIT_DAMAGE, "attribute.chronoshift.trait.critical_threat.cd", 0.5, AttributeModifier.Operation.ADD_VALUE)
                     ),
-                    Items.DIAMOND,
+                    Registration.ENHANCED_LENS.value(),
                     1)
             );
+
+    //Tab
+    public static final Supplier<CreativeModeTab> CHRONOSHIFT_TAB = CREATIVE_TAB.register("chronoshift_tab", ()->
+            CreativeModeTab.builder().icon(()->new ItemStack(TIME_WATCH.value()))
+                    .title(Component.literal("ChronoShift"))
+                    .displayItems(((itemDisplayParameters, output) -> {
+                        output.accept(TIME_WATCH.value());
+                        output.accept(TEMPORAL_SHARD.value());
+                        output.accept(BROKEN_MOVEMENT.value());
+                        output.accept(CRYSTAL_BLOOD.value());
+                        output.accept(ENHANCED_LENS.value());
+                        output.accept(PROCESSOR.value());
+                        output.accept(BLOOD_CIRCUIT.value());
+                    }))
+                    .build());
 }

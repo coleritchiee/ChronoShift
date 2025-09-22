@@ -12,6 +12,7 @@ import net.minecraft.data.recipes.*;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -71,7 +72,37 @@ class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
 
     @Override
     protected void buildRecipes(RecipeOutput recipeOutput) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Registration.BROKEN_MOVEMENT.value(), 1)
+                .pattern("ABA")
+                .pattern("BCB")
+                .pattern("ABA")
+                .define('A', Registration.TEMPORAL_SHARD.value())
+                .define('B', Items.IRON_INGOT)
+                .define('C', Items.COMPARATOR)
+                .group(ChronoShift.MODID)
+                .unlockedBy(getHasName(Registration.TEMPORAL_SHARD.value()), has(Registration.TEMPORAL_SHARD.value()))
+                .save(recipeOutput);
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Registration.TIME_WATCH.value(), 1)
+                .pattern(" A ")
+                .pattern("BCB")
+                .pattern(" B ")
+                .define('A', Registration.TEMPORAL_SHARD.value())
+                .define('B', Items.DIAMOND)
+                .define('C', Registration.BROKEN_MOVEMENT.value())
+                .group(ChronoShift.MODID)
+                .unlockedBy(getHasName(Registration.BROKEN_MOVEMENT.value()), has(Registration.BROKEN_MOVEMENT.value()))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Registration.BLOOD_CIRCUIT.value(), 1)
+                .pattern("AAA")
+                .pattern("ABA")
+                .pattern("AAA")
+                .define('A', Registration.CRYSTAL_BLOOD.value())
+                .define('B', Registration.PROCESSOR.value())
+                .group(ChronoShift.MODID)
+                .unlockedBy(getHasName(Registration.CRYSTAL_BLOOD.value()), has(Registration.CRYSTAL_BLOOD.value()))
+                .save(recipeOutput);
     }
 }
 
@@ -83,6 +114,13 @@ class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
+        handheldItem(Registration.TEMPORAL_SHARD.value());
+        handheldItem(Registration.BROKEN_MOVEMENT.value());
+        handheldItem(Registration.CRYSTAL_BLOOD.value());
+        handheldItem(Registration.TIME_WATCH.value());
+        handheldItem(Registration.ENHANCED_LENS.value());
+        handheldItem(Registration.PROCESSOR.value());
+        handheldItem(Registration.BLOOD_CIRCUIT.value());
     }
 }
 
@@ -120,7 +158,13 @@ class ModLanguageProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-
+        add(Registration.BROKEN_MOVEMENT.value(), "Broken Movement");
+        add(Registration.CRYSTAL_BLOOD.value(), "Crystal Blood");
+        add(Registration.TIME_WATCH.value(), "Time Watch");
+        add(Registration.TEMPORAL_SHARD.value(), "Temporal Shard");
+        add(Registration.ENHANCED_LENS.value(), "Enhanced Lens");
+        add(Registration.PROCESSOR.value(), "Processor");
+        add(Registration.BLOOD_CIRCUIT.value(), "Blood Circuit");
     }
 }
 
